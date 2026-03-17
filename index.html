@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Games | Автоматизований сервіс ігрової халяви</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-purple: #bc13fe;
+            --neon-shadow: rgba(188, 19, 254, 0.5);
+            --steam-dark: #0d1117;
+            --steam-card: #161b22;
+        }
+
+        body {
+            background-color: var(--steam-dark);
+            color: #e6edf3;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .orbitron { font-family: 'Orbitron', sans-serif; }
+
+        .neon-border {
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-shadow);
+        }
+
+        .neon-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px var(--neon-shadow);
+        }
+
+        .game-card {
+            background: var(--steam-card);
+            transition: all 0.3s ease;
+            border: 1px solid #30363d;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-shadow);
+        }
+
+        .steam-gradient {
+            background: linear-gradient(180deg, rgba(188, 19, 254, 0.1) 0%, rgba(13, 17, 23, 1) 100%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--neon-purple);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        #loading {
+            border: 4px solid rgba(188, 19, 254, 0.1);
+            border-left-color: var(--neon-purple);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+
+    <!-- Навігація -->
+    <nav class="fixed w-full z-50 bg-[#0d1117]/90 backdrop-blur-md border-b border-[#30363d]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="orbitron text-2xl font-bold neon-text">NEXUS</span>
+                    <span class="orbitron text-2xl font-bold ml-2">GAMES</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">Головна</a>
+                    <a href="#giveaways" class="nav-link">Роздачі</a>
+                    <a href="#about" class="nav-link">Про проект</a>
+                    <a href="#mission" class="nav-link">Місія</a>
+                </div>
+                <a href="https://t.me/NexusGameFree" target="_blank" class="bg-[#bc13fe] hover:bg-[#a011d8] text-white px-5 py-2 rounded-md font-bold transition-all shadow-lg shadow-purple-500/20">
+                    Telegram
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Секція -->
+    <header id="home" class="relative pt-32 pb-20 steam-gradient overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <h1 class="orbitron text-5xl md:text-7xl font-bold mb-6 tracking-tighter">
+                ТВІЙ ЛУТ БЕЗ <span class="neon-text">ОПЛАТИ</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 mb-10 max-w-2xl mx-auto uppercase tracking-widest">
+                Автоматизований сервіс моніторингу ігор на базі AI
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#giveaways" class="px-8 py-4 bg-white text-black font-bold rounded-sm orbitron hover:bg-gray-200 transition-all">ВІДКРИТИ ВІТРИНУ</a>
+                <a href="https://t.me/NexusGameFree" target="_blank" class="px-8 py-4 border-2 border-[#bc13fe] text-[#bc13fe] font-bold rounded-sm orbitron hover:bg-[#bc13fe]/10 transition-all">ПРИЄДНАТИСЬ У ТГ</a>
+            </div>
+            
+            <div class="mt-12 p-4 inline-block bg-[#161b22]/50 border border-gray-800 rounded-lg">
+                <p class="text-sm text-gray-400">🤝 Розроблено за підтримки <span class="text-white font-bold">GLF Association</span></p>
+                <p class="text-xs text-gray-500 mt-1">Завдяки <span class="neon-text">Granting Life Foundation</span></p>
+            </div>
+        </div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[1000px] bg-purple-900/10 blur-[120px] rounded-full pointer-events-none"></div>
+    </header>
+
+    <!-- Секція Роздач -->
+    <section id="giveaways" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-12">
+            <h2 class="orbitron text-3xl font-bold border-l-4 border-[#bc13fe] pl-4 uppercase">Актуальна халява</h2>
+            <div class="text-sm text-gray-500 uppercase tracking-widest hidden sm:block">AI-агент • Автоматизація • Відкритий код</div>
+        </div>
+
+        <div id="loading-state" class="flex flex-col items-center py-20">
+            <div id="loading"></div>
+            <p class="mt-4 text-gray-500 orbitron">Скануємо цифрові магазини...</p>
+        </div>
+
+        <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
+            <!-- Ігри додаються сюди через JS -->
+        </div>
+    </section>
+
+    <!-- Про проект (За структурою НОРД) -->
+    <section id="about" class="py-24 bg-[#090c10] border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Ліва колонка: Контент -->
+                <div>
+                    <h2 class="orbitron text-4xl font-bold mb-6 uppercase">Про проект <span class="neon-text">Nexus</span></h2>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Nexus — це інноваційний сервіс, який автоматично збирає дані про роздачі з провідних ігрових платформ, аналізує їх та публікує на сайті та в Telegram-каналі.
+                    </p>
+
+                    <div class="space-y-12">
+                        <div>
+                            <h3 class="orbitron text-xl font-bold mb-6 flex items-center">
+                                <span class="bg-[#bc13fe] w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm text-white">⚙️</span>
+                                ЯК ЦЕ ПРАЦЮЄ
+                            </h3>
+                            <div class="grid sm:grid-cols-2 gap-6">
+                                <div class="flex gap-4">
+                                    <span class="text-2xl">📡</span>
+                                    <div>
+                                        <h4 class="font-bold text-white">Збір даних</h4>
+                                        <p class="text-sm text-gray-500">Автоматичний парсинг API та RSS-потоків Steam, EGS, GOG.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <span class="text-2xl">🌐</span>
+                                    <div>
+                                        <h4 class="font-bold text-white">Обробка AI</h4>
+                                        <p class="text-sm text-gray-500">AI-переклад описів та категоризація за жанрами.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <span class="text-2xl">🖼️</span>
+                                    <div>
+                                        <h4 class="font-bold text-white">Візуалізація</h4>
+                                        <p class="text-sm text-gray-500">Автоматичний підбір та оптимізація ілюстрацій.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <span class="text-2xl">🚀</span>
+                                    <div>
+                                        <h4 class="font-bold text-white">Публікація</h4>
+                                        <p class="text-sm text-gray-500">Сайт + Telegram оновлюються одночасно без затримок.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="orbitron text-xl font-bold mb-6 flex items-center">
+                                <span class="bg-[#bc13fe] w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm text-white">📰</span>
+                                НАШІ ДЖЕРЕЛА
+                            </h3>
+                            <p class="text-gray-400 mb-4">Ми зібрали актуальні роздачі з надійних джерел, щоб ви завжди мали у що пограти:</p>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="px-4 py-2 bg-[#161b22] border border-gray-800 rounded flex items-center">
+                                    <span class="mr-2">🎮</span> Steam Store
+                                </div>
+                                <div class="px-4 py-2 bg-[#161b22] border border-gray-800 rounded flex items-center">
+                                    <span class="mr-2">🔥</span> Epic Games Store
+                                </div>
+                                <div class="px-4 py-2 bg-[#161b22] border border-gray-800 rounded flex items-center">
+                                    <span class="mr-2">👾</span> GOG.com
+                                </div>
+                                <div class="px-4 py-2 bg-[#161b22] border border-gray-800 rounded flex items-center">
+                                    <span class="mr-2">📦</span> IndieGala / Itch.io
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-4 italic">Це і для нас, і для вас — чесна халява без прихованих умов.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Права колонка: Roadmap та Фідбек -->
+                <div class="space-y-8">
+                    <div class="bg-[#161b22] p-8 rounded-2xl border border-gray-800">
+                        <h3 class="orbitron text-xl font-bold mb-6 flex items-center">
+                            <span class="bg-[#bc13fe] w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm text-white">🎯</span>
+                            ЩО ПЛАНУЄТЬСЯ
+                        </h3>
+                        <ul class="space-y-4 text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-[#bc13fe] mr-3">✔</span>
+                                <div>
+                                    <span class="font-bold text-white">Бета-тести</span> — доступ до ранніх версій ігор нашої студії.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#bc13fe] mr-3">✔</span>
+                                <div>
+                                    <span class="font-bold text-white">Система сповіщень</span> — персональні алерти про ААА-тайтли.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#bc13fe] mr-3">✔</span>
+                                <div>
+                                    <span class="font-bold text-white">Developer API</span> — інструменти для інших розробників медіа.
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-[#bc13fe] mr-3">✔</span>
+                                <div>
+                                    <span class="font-bold text-white">Спільнота</span> — база для пошуку тіммейтів.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-purple-900/20 to-transparent p-8 rounded-2xl border border-[#bc13fe]/30">
+                        <h3 class="orbitron text-xl font-bold mb-4 flex items-center">
+                            <span class="text-2xl mr-3">💡</span>
+                            ВАШ ФІДБЕК ВАЖЛИВИЙ!
+                        </h3>
+                        <p class="text-sm text-gray-400 mb-6 leading-relaxed">
+                            Ми хочемо розробляти те, що справді потрібно геймерам. Напишіть нам, який сервіс вам би допоміг, і ми розробимо його безкоштовно.
+                        </p>
+                        <div class="space-y-2 mb-8 text-xs uppercase tracking-widest text-gray-500">
+                            <p>✅ Вас буде зазначено як автора ідеї</p>
+                            <p>✅ Ми реалізуємо вашу ідею</p>
+                            <p>✅ Сервіс буде безкоштовним</p>
+                        </div>
+                        <a href="mailto:contact@nexusgames.com" class="block w-full text-center py-4 bg-white text-black font-bold orbitron rounded hover:bg-gray-200 transition-colors">
+                            📧 НАПИСАТИ НА ПОШТУ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Місія та Мітка Портфоліо -->
+    <section id="mission" class="py-20 bg-black border-t border-gray-900">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <span class="text-4xl mb-6 block">🇺🇦</span>
+            <h2 class="orbitron text-3xl font-bold mb-6 neon-text uppercase">Наша місія</h2>
+            <p class="text-gray-400 text-lg leading-relaxed mb-10">
+                Ми віримо, що інформація про доступний геймінг має бути відкритою. Nexus — це не просто сайт з посиланнями, це спільнота гравців, які отримують максимум від улюбленого хобі без зайвих витрат.
+            </p>
+            <div class="h-px bg-gradient-to-r from-transparent via-gray-800 to-transparent mb-10"></div>
+            <p class="text-sm text-gray-500 max-w-2xl mx-auto">
+                Проект створений як портфоліо розробника та демонстрація можливостей AI-агентів для створення автоматизованих медіа-сервісів. Ми відкриті до співпраці з грантами та фондами для розвитку соціально значущих IT-ініціатив.
+            </p>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="py-10 border-t border-[#30363d] text-center text-gray-600 text-sm">
+        <div class="orbitron mb-4 text-gray-400">NEXUS GAMES &copy; 2024</div>
+        <div class="flex justify-center gap-6 mb-4">
+            <a href="https://t.me/NexusGameFree" target="_blank" class="hover:text-[#bc13fe]">Telegram</a>
+            <a href="#about" class="hover:text-[#bc13fe]">Документація</a>
+            <a href="#mission" class="hover:text-[#bc13fe]">Підтримка</a>
+        </div>
+        <p>🤝 Розроблено за підтримки GLF Association</p>
+    </footer>
+
+    <script>
+        async function fetchGiveaways() {
+            try {
+                // Використовуємо corsproxy.io для обходу політики CORS
+                const apiUrl = 'https://www.gamerpower.com/api/giveaways?platform=pc&sort-by=date';
+                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(apiUrl);
+                
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error('Network response was not ok');
+                
+                const games = await response.json();
+                renderGames(games.slice(0, 12));
+            } catch (error) {
+                console.error("Помилка завантаження:", error);
+                document.getElementById('loading-state').innerHTML = `
+                    <div class="text-center p-10 neon-border rounded-lg bg-red-900/10">
+                        <p class="text-red-500 orbitron text-xl mb-2">Помилка з'єднання</p>
+                        <p class="text-gray-400 text-sm">Браузер заблокував запит. Спробуйте оновити сторінку або перевірте налаштування мережі.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function renderGames(games) {
+            const grid = document.getElementById('games-grid');
+            const loading = document.getElementById('loading-state');
+            grid.innerHTML = '';
+            
+            if (!games || games.length === 0) {
+                grid.innerHTML = '<p class="text-center col-span-3 text-gray-500 orbitron">Наразі нових роздач не знайдено.</p>';
+            } else {
+                games.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card rounded-lg flex flex-col overflow-hidden';
+                    const worth = game.worth === 'N/A' ? 'Premium' : game.worth;
+                    
+                    card.innerHTML = `
+                        <div class="relative group">
+                            <img src="${game.image}" alt="${game.title}" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                            <div class="absolute top-2 right-2 bg-black/80 px-2 py-1 text-xs font-bold rounded text-[#bc13fe] border border-[#bc13fe]/50">
+                                ${game.platforms}
+                            </div>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2 orbitron leading-tight min-h-[3.5rem]">${game.title}</h3>
+                            <p class="text-gray-500 text-sm mb-4 line-clamp-2">${game.description}</p>
+                            <div class="mt-auto">
+                                <div class="flex items-center mb-4">
+                                    <span class="text-gray-500 line-through mr-2">${worth}</span>
+                                    <span class="text-green-400 font-bold text-lg">0.00 $</span>
+                                </div>
+                                <a href="${game.open_giveaway_url}" target="_blank" class="block w-full text-center py-3 bg-[#bc13fe] hover:bg-white hover:text-black transition-colors font-bold uppercase orbitron text-sm">
+                                    Отримати Халяву
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            loading.classList.add('hidden');
+            grid.classList.remove('hidden');
+        }
+
+        window.onload = fetchGiveaways;
+    </script>
+</body>
+</html>
