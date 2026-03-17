@@ -60,24 +60,17 @@
             background: radial-gradient(circle at top, rgba(188, 19, 254, 0.15) 0%, rgba(13, 17, 23, 1) 70%);
         }
 
-        /* Loading Spinner */
-        #loading-spinner {
-            border: 4px solid rgba(188, 19, 254, 0.1);
-            border-left-color: var(--neon-purple);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
+        /* Skeleton Loading Animation */
+        @keyframes skeleton-pulse {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 0.1; }
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .price-tag {
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
+        .skeleton {
+            background: #2a2f3a;
+            animation: skeleton-pulse 1.5s infinite ease-in-out;
+            border-radius: 8px;
         }
 
         /* Mobile Adjustments */
@@ -136,7 +129,7 @@
                 <div class="flex items-center gap-4 bg-[#161b22]/80 p-4 rounded-xl border border-gray-800">
                     <span class="text-white font-bold text-sm">GLF Association</span>
                     <div class="w-px h-4 bg-gray-700"></div>
-                    <a href="https://grantinglifefoundation.com/" target="_blank" class="text-gray-400 hover:text-[#bc13fe] text-sm transition-colors">
+                    <a href="https://grantinglifefoundation.com/" target="_blank" class="text-gray-400 hover:text-[#bc13fe] text-sm transition-colors font-bold">
                         Granting Life Foundation
                     </a>
                 </div>
@@ -163,9 +156,26 @@
             </div>
         </div>
 
-        <div id="loading-state" class="flex flex-col items-center py-24">
-            <div id="loading-spinner"></div>
-            <p class="mt-6 text-gray-500 orbitron animate-pulse">З'єднуємось з базою даних Nexus...</p>
+        <!-- Skeleton Loading State -->
+        <div id="loading-state" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="game-card rounded-2xl p-6 h-[450px] flex flex-col">
+                <div class="skeleton w-full h-48 mb-6"></div>
+                <div class="skeleton w-3/4 h-6 mb-4"></div>
+                <div class="skeleton w-full h-12 mb-auto"></div>
+                <div class="skeleton w-full h-14"></div>
+            </div>
+            <div class="game-card rounded-2xl p-6 h-[450px] flex flex-col hidden sm:flex">
+                <div class="skeleton w-full h-48 mb-6"></div>
+                <div class="skeleton w-3/4 h-6 mb-4"></div>
+                <div class="skeleton w-full h-12 mb-auto"></div>
+                <div class="skeleton w-full h-14"></div>
+            </div>
+            <div class="game-card rounded-2xl p-6 h-[450px] flex flex-col hidden lg:flex">
+                <div class="skeleton w-full h-48 mb-6"></div>
+                <div class="skeleton w-3/4 h-6 mb-4"></div>
+                <div class="skeleton w-full h-12 mb-auto"></div>
+                <div class="skeleton w-full h-14"></div>
+            </div>
         </div>
 
         <div id="games-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
@@ -270,21 +280,24 @@
     <script>
         async function fetchGiveaways() {
             try {
-                // Використовуємо api.allorigins.win для обходу CORS
+                // Використовуємо api.allorigins.win з іншим параметром для обходу блокування
                 const apiUrl = 'https://www.gamerpower.com/api/giveaways?platform=pc&sort-by=date';
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(apiUrl)}`;
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
                 
                 const response = await fetch(proxyUrl);
                 if (!response.ok) throw new Error('API Response Error');
                 
-                const games = await response.json();
-                renderGames(games.slice(0, 15)); // Показуємо 15 ігор
+                const wrapper = await response.json();
+                // Allorigins обгортає дані в поле "contents"
+                const games = JSON.parse(wrapper.contents);
+                
+                renderGames(games.slice(0, 15)); 
             } catch (error) {
                 console.error("Помилка:", error);
                 document.getElementById('loading-state').innerHTML = `
-                    <div class="text-center p-8 border border-red-900/30 rounded-xl bg-red-900/5 max-w-md">
+                    <div class="text-center p-8 border border-red-900/30 rounded-xl bg-red-900/5 max-w-md col-span-full mx-auto">
                         <p class="text-red-500 orbitron text-lg mb-2">Помилка з'єднання</p>
-                        <p class="text-gray-500 text-sm mb-4">На жаль, не вдалося отримати дані. Спробуйте оновити сторінку вручну.</p>
+                        <p class="text-gray-500 text-sm mb-4">Браузер заблокував запит або сервер тимчасово недоступний. Спробуйте оновити сторінку.</p>
                         <button onclick="location.reload()" class="px-6 py-2 bg-[#bc13fe] text-white font-bold orbitron text-xs rounded shadow-lg">ОНОВИТИ</button>
                     </div>
                 `;
