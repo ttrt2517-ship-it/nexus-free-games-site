@@ -308,11 +308,10 @@
     <script>
         async function fetchGiveaways() {
             try {
-                // Використовуємо corsproxy.io для обходу політики CORS
+                // Виконуємо прямий запит до API без використання проксі
                 const apiUrl = 'https://www.gamerpower.com/api/giveaways?platform=pc&sort-by=date';
-                const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(apiUrl);
                 
-                const response = await fetch(proxyUrl);
+                const response = await fetch(apiUrl);
                 if (!response.ok) throw new Error('Network response was not ok');
                 
                 const games = await response.json();
@@ -322,7 +321,7 @@
                 document.getElementById('loading-state').innerHTML = `
                     <div class="text-center p-10 neon-border rounded-lg bg-red-900/10">
                         <p class="text-red-500 orbitron text-xl mb-2">Помилка з'єднання</p>
-                        <p class="text-gray-400 text-sm">Браузер заблокував запит. Спробуйте оновити сторінку або перевірте налаштування мережі.</p>
+                        <p class="text-gray-400 text-sm">Не вдалося завантажити дані безпосередньо. Можливо, сервіс тимчасово недоступний або існують обмеження CORS у вашому браузері.</p>
                     </div>
                 `;
             }
